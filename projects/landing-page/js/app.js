@@ -54,4 +54,16 @@
 
 // Set sections as active
 
+const sections = document.querySelectorAll('section');
 
+const navbarList = document.querySelector('#navbar__list');
+
+const fragment = document.createDocumentFragment();
+sections.forEach(section => {
+  const navItem = document.createElement('li');
+  navItem.classList.add('menu__link')
+  navItem.textContent = section.dataset.nav;
+  fragment.appendChild(navItem);
+})
+
+navbarList.appendChild(fragment);
