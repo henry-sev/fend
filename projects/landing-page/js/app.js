@@ -61,9 +61,20 @@ const navbarList = document.querySelector('#navbar__list');
 const fragment = document.createDocumentFragment();
 sections.forEach(section => {
   const navItem = document.createElement('li');
+
   navItem.classList.add('menu__link')
   navItem.textContent = section.dataset.nav;
+  navItem.setAttribute("data-link", section.id)
+
   fragment.appendChild(navItem);
 })
 
 navbarList.appendChild(fragment);
+
+
+navbarList.addEventListener('click', (e) => {
+  const linkId = e.target.dataset.link;
+  const section = document.getElementById(linkId);
+
+  section.scrollIntoView({behavior: "smooth"});
+})
