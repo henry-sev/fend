@@ -20,92 +20,13 @@
 const sections = document.querySelectorAll('section');
 const navbarList = document.querySelector('#navbar__list');
 const header = document.querySelector('.page__header');
+let timeout = false;
 
 /**
  * End Global Variables
  * Start Helper Functions
  * 
 */
-
-
-
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
-
-// build the nav
-const fragment = document.createDocumentFragment();
-
-sections.forEach(section => {
-  const navItem = document.createElement('li');
-
-  navItem.classList.add('menu__link')
-  navItem.textContent = section.dataset.nav;
-  navItem.setAttribute("data-link", section.id)
-
-  fragment.appendChild(navItem);
-})
-
-navbarList.appendChild(fragment);
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
-
-//scroll
-navbarList.addEventListener('click', (e) => {
-  const linkId = e.target.dataset.link;
-  const section = document.getElementById(linkId);
-
-  section.scrollIntoView({behavior: "smooth"});
-  // setActiveSection(linkId);
-})
-
-//set active state
-// function setActiveSection(id) {
-//   sections.forEach(section => {
-//     if (section.id === id) {
-//       section.classList.add('your-active-class');
-//     } else {
-//       section.classList.remove('your-active-class');
-//     }
-//   })
-// }
-
-//Hide navigation bar while not scrolling
-let timeout = false;
-window.addEventListener('scroll', () => {
-  header.classList.remove("slip-away");
-  onStopScroll(header);
-  activeTopSection(sections);
-})
-
-//
-function onStopScroll(element) {
-  if (timeout) {clearTimeout(timeout)}
-
-  timeout = setTimeout(() => {
-    header.classList.add("slip-away");
-  }, 1000);
-}
-
 //find section which closest to the top
 function findTopSection(sections) {
   const viewWidth = window.innerWidth;
@@ -125,7 +46,48 @@ function findTopSection(sections) {
   return topSection;
 }
 
-//active section which closest to the top
+//active navigation item by section
+function activeNavItemBySec(section) {
+  navbarList.childNodes.forEach(navItem => {
+    if (navItem.dataset.link === section.id) {
+      navItem.classList.add('on-hover');
+    } else {
+      navItem.classList.remove('on-hover');
+    }
+  })
+}
+
+/**
+ * End Helper Functions
+ * Begin Main Functions
+ * 
+*/
+
+// build the nav
+function buildNav() {
+  const fragment = document.createDocumentFragment();
+
+  sections.forEach(section => {
+    const navItem = document.createElement('li');
+    navItem.classList.add('menu__link')
+    navItem.textContent = section.dataset.nav;
+    navItem.setAttribute("data-link", section.id)
+    fragment.appendChild(navItem);
+  })
+
+  navbarList.appendChild(fragment);
+}
+
+// Hide navigation bar while not scrolling
+function onStopScroll() {
+  if (timeout) {clearTimeout(timeout)}
+
+  timeout = setTimeout(() => {
+    header.classList.add("slip-away");
+  }, 1000);
+}
+
+// Add class 'active' to section when near top of viewport
 function activeTopSection(sections) {
   const topSection = findTopSection(sections);
 
@@ -141,14 +103,30 @@ function activeTopSection(sections) {
   }
 }
 
-//active navigation itme by section
-function activeNavItemBySec(section) {
-  navbarList.childNodes.forEach(navItem => {
-    if (navItem.dataset.link === section.id) {
-      navItem.classList.add('on-hover');
-    } else {
-      navItem.classList.remove('on-hover');
-    }
-  })
+// Scroll to anchor ID using scrollTO event
+function scrollToSection(e) {
+  const linkId = e.target.dataset.link;
+  const section = document.getElementById(linkId);
+
+  section.scrollIntoView({behavior: "smooth"});
 }
 
+
+/**
+ * End Main Functions
+ * Begin Events
+ * 
+*/
+
+// Build menu 
+buildNav()
+
+// Scroll to section on link click
+navbarList.addEventListener('click', scrollToSection);
+
+// Set sections as active
+window.addEventListener('scroll', () => {
+  header.classList.remove("slip-away");
+  onStopScroll();
+  activeTopSection(sections);
+})
