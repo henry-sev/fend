@@ -55,9 +55,10 @@
 // Set sections as active
 
 const sections = document.querySelectorAll('section');
-
 const navbarList = document.querySelector('#navbar__list');
+const header = document.querySelector('.page__header')
 
+//add navigation items
 const fragment = document.createDocumentFragment();
 sections.forEach(section => {
   const navItem = document.createElement('li');
@@ -71,10 +72,22 @@ sections.forEach(section => {
 
 navbarList.appendChild(fragment);
 
-
+//scroll
 navbarList.addEventListener('click', (e) => {
   const linkId = e.target.dataset.link;
   const section = document.getElementById(linkId);
 
+  // header.classList.add("slip-away");
   section.scrollIntoView({behavior: "smooth"});
+})
+
+//
+let timeout = false;
+window.addEventListener('scroll', () => {
+  header.classList.remove("slip-away");
+  if (timeout) {clearTimeout(timeout)}
+  timeout = setTimeout(() => {
+    console.log('hello');
+    header.classList.add("slip-away");
+  }, 1000);
 })
