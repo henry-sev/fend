@@ -135,6 +135,16 @@ section {
   color: #fff;
 }
 
+.to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  height: 40px;
+  width: 40px;
+  box-shadow: 3px 3px 3px #000;
+  background: center/contain url(../images/top.png) #fff;
+}
+
 /* ---- Theme Rules ---- */
 /* Landing Container Styles */
 .landing__container {

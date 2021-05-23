@@ -20,6 +20,8 @@
 const sections = document.querySelectorAll('section');
 const navbarList = document.querySelector('#navbar__list');
 const header = document.querySelector('.page__header');
+const topBtn = document.querySelector('.top-button');
+const body = document.body;
 let timeout = false;
 
 /**
@@ -111,6 +113,14 @@ function scrollToSection(e) {
   section.scrollIntoView({behavior: "smooth"});
 }
 
+//Display the scroll-to-top button
+function showScrollTop() {
+  if (window.scrollY >= window.innerHeight) {
+    topBtn.classList.add('to-top');
+  } else {
+    topBtn.classList.remove('to-top');
+  }
+}
 
 /**
  * End Main Functions
@@ -129,4 +139,11 @@ window.addEventListener('scroll', () => {
   header.classList.remove("slip-away");
   onStopScroll();
   activeTopSection(sections);
+  showScrollTop();
 })
+
+//Scroll to the top of the page
+topBtn.addEventListener('click', () => {
+  document.body.scrollIntoView({behavior: "smooth"})
+})
+
