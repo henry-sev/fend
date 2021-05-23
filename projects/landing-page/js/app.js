@@ -77,11 +77,22 @@ navbarList.addEventListener('click', (e) => {
   const linkId = e.target.dataset.link;
   const section = document.getElementById(linkId);
 
-  // header.classList.add("slip-away");
   section.scrollIntoView({behavior: "smooth"});
+  setActiveSection(linkId);
 })
 
-//
+//set active state
+function setActiveSection(id) {
+  sections.forEach(section => {
+    if (section.id === id) {
+      section.classList.add('your-active-class');
+    } else {
+      section.classList.remove('your-active-class');
+    }
+  })
+}
+
+//Hide navigation bar while not scrolling
 let timeout = false;
 window.addEventListener('scroll', () => {
   header.classList.remove("slip-away");
@@ -91,3 +102,16 @@ window.addEventListener('scroll', () => {
     header.classList.add("slip-away");
   }, 1000);
 })
+
+//determins whether an element is in viewport
+function isInviewPort(element) {
+  const viewWidth = window.innerWidth;
+  const viewHeight = window.innerHeight;
+  const {top, right, bottom, left} = element.getBoundingClientRect();
+
+  if (top >=0 && left >= 0 && bottom <= viewHeight && right <= viewWidth) {
+    return true;
+  }
+  return false;
+}
+
