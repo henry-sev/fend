@@ -96,12 +96,25 @@ function setActiveSection(id) {
 let timeout = false;
 window.addEventListener('scroll', () => {
   header.classList.remove("slip-away");
+  onStopScroll(header);
+
+  sections.forEach(section => {
+    if (isInviewPort(section)) {
+      section.classList.add('your-active-class');
+    } else {
+      section.classList.remove('your-active-class');
+    }
+  })
+})
+
+//
+function onStopScroll(element) {
   if (timeout) {clearTimeout(timeout)}
+
   timeout = setTimeout(() => {
-    console.log('hello');
     header.classList.add("slip-away");
   }, 1000);
-})
+}
 
 //determins whether an element is in viewport
 function isInviewPort(element) {
