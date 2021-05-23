@@ -78,19 +78,19 @@ navbarList.addEventListener('click', (e) => {
   const section = document.getElementById(linkId);
 
   section.scrollIntoView({behavior: "smooth"});
-  setActiveSection(linkId);
+  // setActiveSection(linkId);
 })
 
 //set active state
-function setActiveSection(id) {
-  sections.forEach(section => {
-    if (section.id === id) {
-      section.classList.add('your-active-class');
-    } else {
-      section.classList.remove('your-active-class');
-    }
-  })
-}
+// function setActiveSection(id) {
+//   sections.forEach(section => {
+//     if (section.id === id) {
+//       section.classList.add('your-active-class');
+//     } else {
+//       section.classList.remove('your-active-class');
+//     }
+//   })
+// }
 
 //Hide navigation bar while not scrolling
 let timeout = false;
@@ -101,6 +101,7 @@ window.addEventListener('scroll', () => {
   sections.forEach(section => {
     if (isInviewPort(section)) {
       section.classList.add('your-active-class');
+      activeNavItemBySec(section);
     } else {
       section.classList.remove('your-active-class');
     }
@@ -126,5 +127,16 @@ function isInviewPort(element) {
     return true;
   }
   return false;
+}
+
+//active navigation itme by section
+function activeNavItemBySec(section) {
+  navbarList.childNodes.forEach(navItem => {
+    if (navItem.dataset.link === section.id) {
+      navItem.classList.add('on-hover');
+    } else {
+      navItem.classList.remove('on-hover');
+    }
+  })
 }
 
