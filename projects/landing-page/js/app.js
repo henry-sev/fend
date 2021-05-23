@@ -30,19 +30,11 @@ let timeout = false;
  * 
 */
 //find section which closest to the top
-function findTopSection(sections) {
-  const viewWidth = window.innerWidth;
-  const viewHeight = window.innerHeight;
-  let max = viewHeight;
+function findTopSection () {
   let topSection = null;
-
   sections.forEach(section => {
-    const {top, right, bottom, left} = section.getBoundingClientRect();
-    if (top >=0 && left >= 0 && bottom <= viewHeight && right <= viewWidth) {
-      if (top < max) {
-        max = top;
-        topSection = section;
-      }
+    if (window.pageYOffset + 1 >= section.offsetTop) {
+      topSection = section;
     }
   })
   return topSection;
@@ -91,7 +83,7 @@ function onStopScroll() {
 
 // Add class 'active' to section when near top of viewport
 function activeTopSection(sections) {
-  const topSection = findTopSection(sections);
+  const topSection = findTopSection();
 
   if (topSection) {
     sections.forEach(section => {
