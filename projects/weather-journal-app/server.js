@@ -31,9 +31,11 @@ app.get('/all', (req, res) => {
 app.post('/addJournal', (req, res) => {
   const newEntry = {
     date: req.body.date,
-    temp: req.body.req,
-    content: req.body.req,
+    temp: req.body.temp,
+    content: req.body.content,
   }
   weatherData.push(newEntry);
-  res.send(weatherData);
+  console.log(weatherData);
+  // res.send(weatherData);
+  res.send(newEntry);
 })
