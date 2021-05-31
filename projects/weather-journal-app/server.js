@@ -25,7 +25,7 @@ app.listen(port, () => {
 
 const weatherData = [];
 app.get('/all', (req, res) => {
-  res.send(weatherData);
+  res.send(projectData);
 })
 
 app.post('/addJournal', (req, res) => {
@@ -35,5 +35,6 @@ app.post('/addJournal', (req, res) => {
     content: req.body.content,
   }
   weatherData.push(newEntry);
+  projectData = newEntry;
   res.send(weatherData);
 })

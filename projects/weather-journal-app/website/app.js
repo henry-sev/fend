@@ -1,6 +1,6 @@
 /* Global Variables */
 const baseURL = "https://api.openweathermap.org/data/2.5/weather?q=";
-const apiKey = "&appid=b4f9bc96486cca988708b41a0aae131b";
+const apiKey = "&appid=b4f9bc96486cca988708b41a0aae131b&units=metric";
 
 document.querySelector('#generate').addEventListener('click', generateJournal);
 
@@ -13,12 +13,14 @@ function generateJournal() {
   let month = d.getMonth() + 1;
   let newDate = month +'.'+ d.getDate()+'.'+ d.getFullYear();
 
-  fetch(baseURL + zipcode + apiKey)
-    .then(res => res.json())
-    .then(data => {
-      postData('/addJournal', {date: newDate, temp: data.main.temp, content: feelings});
-      updateUI();
-    })
+  zipcode 
+  ? fetch(baseURL + zipcode + apiKey)
+      .then(res => res.json())
+      .then(data => {
+        postData('/addJournal', {date: newDate, temp: data.main.temp, content: feelings});
+        updateUI();
+      })
+  : alert("Invalid zipcode")
 }
 
 const postData = async (url = '', data = {}) => {
@@ -36,11 +38,11 @@ const updateUI = async () => {
   const res = await fetch ('/all');
 
   try {
-    const recentJournal = (await res.json()).slice(-1);
+    const recentJournal = await res.json();
 
-    document.querySelector('#date').innerHTML = "Date: " +  recentJournal[0].date;
-    document.querySelector('#temp').innerHTML = "Temperature: " + recentJournal[0].temp + ' K' ;
-    document.querySelector('#content').innerHTML = "Feelings: " + recentJournal[0].content;
+    document.querySelector('#date').innerHTML = "Date: " +  recentJournal.date;
+    document.querySelector('#temp').innerHTML = "Temperature: " + recentJournal.temp + ' &#8451' ;
+    document.querySelector('#content').innerHTML = "Feelings: " + recentJournal.content;
   } catch(error) {
     console.log('error', error);
   }
