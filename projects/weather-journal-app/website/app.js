@@ -2,8 +2,6 @@
 const baseURL = "https://api.openweathermap.org/data/2.5/weather?q=";
 const apiKey = "&appid=b4f9bc96486cca988708b41a0aae131b";
 
-
-
 document.querySelector('#generate').addEventListener('click', generateJournal);
 
 function generateJournal() {
@@ -29,7 +27,6 @@ const postData = async (url = '', data = {}) => {
     credentials: "same-origin",
     headers: {
       'Content-Type': 'application/json',
-
     },
     body: JSON.stringify(data),
   })
