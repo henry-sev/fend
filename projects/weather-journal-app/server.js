@@ -23,6 +23,17 @@ app.listen(port, () => {
   console.log(`Server is running on localhost: ${port}`);
 })
 
+const weatherData = [];
 app.get('/all', (req, res) => {
-  res.send(projectData);
+  res.send(weatherData);
+})
+
+app.post('/addJournal', (req, res) => {
+  const newEntry = {
+    date: req.body.date,
+    temp: req.body.req,
+    content: req.body.req,
+  }
+  weatherData.push(newEntry);
+  res.send(weatherData);
 })
