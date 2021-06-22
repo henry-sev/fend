@@ -36,5 +36,5 @@ app.post('/addJournal', (req, res) => {
   }
   weatherData.push(newEntry);
   projectData = newEntry;
-  res.send(weatherData);
+  res.end();
 })

@@ -35,7 +35,7 @@ const postData = async (url = '', data = {}) => {
 }
 
 const updateUI = async () => {
-  const res = await fetch ('/all');
+  const res = await fetch ('/all');   //这里使用await之后res不是promise，而是response
 
   try {
     const recentJournal = await res.json();
