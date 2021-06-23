@@ -3,7 +3,7 @@ function handleSubmit(event) {
 
     // check what text was put into the form field
     let formText = document.getElementById('name').value
-    // Client.checkForName(formText)
+    Client.checkForName(formText)
 
     document.getElementById('results').innerHTML = '';
 
@@ -81,4 +81,10 @@ const updateUI = (data) => {
     document.getElementById('results').appendChild(dl)
 }
 
-export { handleSubmit }
+//jest example
+const sum = (a, b) => a + b;
+
+export { handleSubmit, sum}
+
+
+
