@@ -3,21 +3,25 @@ function handleSubmit(event) {
 
     // check what text was put into the form field
     let formText = document.getElementById('name').value
-    Client.checkForName(formText)
-
-    console.log("::: Form Submitted :::")
-    // fetch('http://localhost:8081/test')
-    // .then(res => res.json())
-    // .then(function(res) {
-    //     document.getElementById('results').innerHTML = res.message
-    // })
-
+    // Client.checkForName(formText)
 
     document.getElementById('results').innerHTML = '';
 
+    console.log("::: Form Submitted :::")
+    formText
+    ? fetch('http://localhost:8081/test')
+    .then(res => res.json())
+    .then(data => {
+        sentimentAnalysis(data.application_key, formText)
+    })
+    .catch(error => console.log("Error", error))
+    : alert("Invalid Input!")
+}
+
+const sentimentAnalysis = (key, text) => {
     const formdata = new FormData();
-    formdata.append("key", "35c6a1388a5251d2ae876f78f25970f5")
-    formdata.append("txt", formText)
+    formdata.append("key", key)
+    formdata.append("txt", text)
     formdata.append("lang", "en")
     formdata.append("model", "general")
 
