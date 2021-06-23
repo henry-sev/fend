@@ -3,12 +3,11 @@ function handleSubmit(event) {
 
     // check what text was put into the form field
     let formText = document.getElementById('name').value
-    Client.checkForName(formText)
-
+    
     document.getElementById('results').innerHTML = '';
-
     console.log("::: Form Submitted :::")
-    formText
+
+    Client.checkForName(formText)
     ? fetch('http://localhost:8081/test')
     .then(res => res.json())
     .then(data => {
@@ -30,11 +29,12 @@ const sentimentAnalysis = (key, text) => {
         body: formdata,
     }
 
-    fetch("https://api.meaningcloud.com/sentiment-2.1", requestOptions)
+    return fetch("https://api.meaningcloud.com/sentiment-2.1", requestOptions)
         .then(res => res.json())
         .then(data => {
             console.log(data);
-            updateUI(data)
+            updateUI(data);
+            return data;
         })
         .catch(error => {console.log("Error", error)})
 }
@@ -84,7 +84,7 @@ const updateUI = (data) => {
 //jest example
 const sum = (a, b) => a + b;
 
-export { handleSubmit, sum}
+export { handleSubmit, sum, sentimentAnalysis}
 
 
 
