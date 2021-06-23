@@ -81,10 +81,7 @@ const updateUI = (data) => {
     document.getElementById('results').appendChild(dl)
 }
 
-//jest example
-const sum = (a, b) => a + b;
-
-export { handleSubmit, sum, sentimentAnalysis}
+export { handleSubmit}
 
 
 
