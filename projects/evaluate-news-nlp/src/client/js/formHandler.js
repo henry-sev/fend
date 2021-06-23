@@ -33,58 +33,48 @@ function handleSubmit(event) {
             updateUI(data)
         })
         .catch(error => {console.log("Error", error)})
-
-
 }
 
 const updateUI = (data) => {
-    // const dl = document.createElement('dl')
-    const sentenceList = document.createElement('div')
-    const conceptList = document.createElement('div')
-    const entityList = document.createElement('div')
-
-    sentenceList.innerHTML = "Sentence List:"
-    conceptList.innerHTML = "Concept List:"
-    entityList.innerHTML = "Entity List:"
-
+    const dl = document.createElement('dl')
 
     if (data.sentence_list) {
-        const ul = document.createElement('ul')
+        const sentenceList = document.createElement('dt')
+        sentenceList.innerHTML = "Sentence List:"
 
         for (const sentence of data.sentence_list) {
-            const li = document.createElement('li')
-            li.innerHTML = sentence.text
-            ul.appendChild(li)
+            const dd = document.createElement('dd')
+            dd.innerHTML = sentence.text
+            sentenceList.appendChild(dd)
         }
-        sentenceList.appendChild(ul)
+        dl.appendChild(sentenceList)
     }
 
     if (data.sentimented_concept_list) {
-        const ul = document.createElement('ul')
+        const conceptList = document.createElement('dt')
+        conceptList.innerHTML = "Concept List:"
 
-        for (const sentence of data.sentimented_concept_list) {
-            const li = document.createElement('li')
-            li.innerHTML = sentence.form
-            ul.appendChild(li)
+        for (const concept of data.sentimented_concept_list) {
+            const dd = document.createElement('dd')
+            dd.innerHTML = concept.form
+            conceptList.appendChild(dd)
         }
-        conceptList.appendChild(ul)
+        dl.appendChild(conceptList)
     }
 
     if (data.sentimented_entity_list) {
-        const ul = document.createElement('ul')
+        const entityList = document.createElement('dt')
+        entityList.innerHTML = "Entity List:"
 
-        for (const sentence of data.sentimented_entity_list) {
-            const li = document.createElement('li')
-            li.innerHTML = sentence.form
-            ul.appendChild(li)
+        for (const entity of data.sentimented_entity_list) {
+            const dd = document.createElement('dd')
+            dd.innerHTML = entity.form
+            entityList.appendChild(dd)
         }
-        entityList.appendChild(ul)
+        dl.appendChild(entityList)
     }
 
-    document.getElementById('results').appendChild(sentenceList)
-    document.getElementById('results').appendChild(conceptList)
-    document.getElementById('results').appendChild(entityList)
-
+    document.getElementById('results').appendChild(dl)
 }
 
 export { handleSubmit }
