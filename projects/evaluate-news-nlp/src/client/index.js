@@ -7,7 +7,12 @@ import './styles/header.scss'
 import './styles/form.scss'
 import './styles/footer.scss'
 
-console.log(checkForName);
+// console.log(checkForName);
 
-alert("I EXIST")
-console.log("CHANGE!!");
+// alert("I EXIST")
+// console.log("CHANGE!!");
+
+export {
+  checkForName,
+  handleSubmit
+}
